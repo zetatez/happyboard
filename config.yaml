@@ -1,0 +1,75 @@
+log_level: "info"
+hijack_enabled: true
+toggle_key: "ctrl+shift+x"
+
+platform:
+  linux:
+    backend: "auto"
+
+profiles:
+  - name: "default"
+    description: "全局默认动作"
+    is_default: true
+    actions:
+      - trigger: "ctrl+shift+r"
+        type: "internal"
+        command: "reload_config"
+
+  - name: "ai-coding"
+    description: "AI 编码助手快速回复"
+    match:
+      - app_id: ".*(st|Alacritty|kitty|iTerm|Windows Terminal).*"
+      - app_id: ".*(opencode|codex|claude).*"
+    actions:
+      - trigger: "left"
+        type: "text_input"
+        text: "Ok, implement this."
+        enter: true
+      - trigger: "right"
+        type: "text_input"
+        text: "No, revise it."
+        enter: true
+
+      - trigger: "page_up"
+        type: "text_input"
+        text: "Continue."
+        enter: true
+      - trigger: "page_down"
+        type: "text_input"
+        text: "Reject, try another way."
+        enter: true
+
+      - trigger: "home"
+        type: "text_input"
+        text: "Find bugs in this code."
+        enter: true
+      - trigger: "end"
+        type: "text_input"
+        text: "Fix the issues above."
+        enter: true
+
+      - trigger: "insert"
+        type: "text_input"
+        text: "git commit"
+        enter: true
+
+      - trigger: "f10"
+        type: "text_input"
+        text: "No, let me explain. "
+        enter: true
+
+      - {
+          trigger: "f11",
+          type: "text_input",
+          text: "Simplify the code. Make it cleaner.",
+          enter: true,
+        }
+
+      - trigger: "f12"
+        type: "text_input"
+        text: |
+          请帮我审查以下代码的潜在问题：
+          1. 是否有安全风险
+          2. 是否有性能问题
+          3. 是否有边界情况未处理
+        enter: true
