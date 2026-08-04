@@ -22,9 +22,10 @@ install: build
 	systemctl --user disable --now happyboard 2>/dev/null || true
 	sudo install -m 755 $(BIN) /usr/local/bin/happyboard
 	rm -rf $(BIN)
+	mkdir -p ~/.config/happyboard
+	cp -f config.yaml ~/.config/happyboard/config.yaml
 	mkdir -p ~/.config/systemd/user
-	sed "s|/usr/local/bin/happyboard|/usr/local/bin/happyboard|" happyboard.service \
-		> ~/.config/systemd/user/happyboard.service
+	cp -f happyboard.service ~/.config/systemd/user/happyboard.service
 	systemctl --user daemon-reload
 	systemctl --user enable --now happyboard
 	@echo "happyboard installed"
